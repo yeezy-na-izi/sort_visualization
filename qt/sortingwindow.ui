@@ -56,7 +56,11 @@
     </layout>
    </item>
    <item>
-    <widget class="QTableWidget" name="array"/>
+    <widget class="QTableWidget" name="array">
+     <attribute name="horizontalHeaderDefaultSectionSize">
+      <number>45</number>
+     </attribute>
+    </widget>
    </item>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -72,6 +76,20 @@
         </size>
        </property>
       </spacer>
+     </item>
+     <item>
+      <widget class="QComboBox" name="sort_selection">
+       <item>
+        <property name="text">
+         <string>------</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Bubble sort</string>
+        </property>
+       </item>
+      </widget>
      </item>
      <item>
       <widget class="QPushButton" name="sort">

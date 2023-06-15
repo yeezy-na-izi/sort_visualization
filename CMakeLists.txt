@@ -28,7 +28,9 @@ add_executable(
         qt/sortingwindow.ui
 
         utils/random_generator.cpp
-        utils/sorting.cpp
+        utils/random_generator.h
+        utils/sortings.cpp
+        utils/sortings.h
 )
 target_link_libraries(
         sort_visualization

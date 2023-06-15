@@ -19,9 +19,15 @@ public:
 
     void connectSignals();
 
+    void refresh_array();
+
+    void refresh_array(std::pair<int, int> indexes, bool is_swap);
+
 private slots:
 
     void generateRandomArray();
+
+    void sortArray();
 
 private:
     Ui::SortingWindow *ui;
