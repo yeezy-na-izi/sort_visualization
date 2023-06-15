@@ -99,5 +99,15 @@ void SortingWindow::sortArray() {
             std::this_thread::sleep_for(std::chrono::milliseconds(300));
         }
         std::cout << "Bubble sort finished" << std::endl;
+    } else if (sort_type == "Selection sort") {
+        SelectionSort selection_sort(m_array);
+        while (!selection_sort.isFinished()) {
+            auto indexes_and_bool = selection_sort.nextStep();
+            auto indexes = indexes_and_bool.first;
+            bool is_swapped = indexes_and_bool.second;
+            refresh_array(indexes, is_swapped);
+            QApplication::processEvents();
+            std::this_thread::sleep_for(std::chrono::milliseconds(300));
+        }
     }
 }
