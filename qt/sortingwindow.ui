@@ -94,6 +94,11 @@
          <string>Selection sort</string>
         </property>
        </item>
+       <item>
+        <property name="text">
+         <string>Quick sort</string>
+        </property>
+       </item>
 
       </widget>
      </item>

@@ -1,23 +1,41 @@
 #include <iostream>
-#include "random_generator.cpp"
-#include "sorting.cpp"
+#include "random_generator.h"
 
-using namespace std;
+
+void quick_sort(std::vector<int> &array, int left, int right) {
+    if (left >= right) {
+        return;
+    }
+    int pivot = array[(left + right) / 2];
+    int i = left;
+    int j = right;
+    while (i <= j) {
+        while (array[i] < pivot) {
+            i++;
+        }
+        while (array[j] > pivot) {
+            j--;
+        }
+        if (i <= j) {
+            std::swap(array[i], array[j]);
+            i++;
+            j--;
+        }
+    }
+    quick_sort(array, left, j);
+    quick_sort(array, i, right);
+}
+
 
 int main() {
-    auto array = random_gen(20, 0, 100);
-
-    for (auto i: array) {
-        cout << i << " ";
+    std::vector<int> array = random_gen(10, 0, 100);
+    for (int i : array) {
+        std::cout << i << " ";
     }
-    cout << endl;
-
-    mergeSort(array, 0, array.size() - 1);
-
-    for (auto i: array) {
-        cout << i << " ";
+    std::cout << std::endl;
+    quick_sort(array, 0, array.size() - 1);
+    for (int i : array) {
+        std::cout << i << " ";
     }
-    cout << endl;
-
     return 0;
 }

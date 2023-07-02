@@ -49,11 +49,14 @@ void SortingWindow::refresh_array() {
 }
 
 void SortingWindow::refresh_array(std::pair<int, int> indexes, bool is_swap) {
-    std::cout << "refreshing array " << indexes.first << " "<< indexes.second<<std::endl;
     ui->array->clear();
     ui->array->setRowCount(1);
     ui->array->setColumnCount(static_cast<int>(m_array.size()));
     auto color = is_swap ? Qt::red : Qt::green;
+    if (is_swap) {
+        std::swap(m_array[indexes.first], m_array[indexes.second]);
+    }
+
     for (int i = 0; i < m_array.size(); i++) {
         auto item = new QTableWidgetItem(QString::number(m_array[i]));
         if (i == indexes.first || i == indexes.second) {
@@ -86,28 +89,24 @@ void SortingWindow::sortArray() {
         return;
     }
 
-    if (sort_type == "------") {
-        return;
-    } else if (sort_type == "Bubble sort") {
-        BubbleSort bubble_sort(m_array);
-        while (!bubble_sort.isFinished()) {
-            auto indexes_and_bool = bubble_sort.nextStep();
-            auto indexes = indexes_and_bool.first;
-            bool is_swapped = indexes_and_bool.second;
-            refresh_array(indexes, is_swapped);
-            QApplication::processEvents();
-            std::this_thread::sleep_for(std::chrono::milliseconds(300));
-        }
-        std::cout << "Bubble sort finished" << std::endl;
+    Sorting *sort;
+    if (sort_type == "Bubble sort") {
+        sort = new BubbleSort(m_array);
     } else if (sort_type == "Selection sort") {
-        SelectionSort selection_sort(m_array);
-        while (!selection_sort.isFinished()) {
-            auto indexes_and_bool = selection_sort.nextStep();
-            auto indexes = indexes_and_bool.first;
-            bool is_swapped = indexes_and_bool.second;
-            refresh_array(indexes, is_swapped);
-            QApplication::processEvents();
-            std::this_thread::sleep_for(std::chrono::milliseconds(300));
-        }
+        sort = new SelectionSort(m_array);
+    } else if (sort_type == "Quick sort") {
+        sort = new QuickSort(m_array);
+    } else {
+        return;
+    }
+
+    refresh_array();
+    while (!sort->isFinished()) {
+        auto indexes_and_bool = sort->nextStep();
+        auto indexes = indexes_and_bool.first;
+        bool is_swapped = indexes_and_bool.second;
+        refresh_array(indexes, is_swapped);
+        QApplication::processEvents();
+        std::this_thread::sleep_for(std::chrono::milliseconds(300));
     }
 }
