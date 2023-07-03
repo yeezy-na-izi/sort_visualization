@@ -8,7 +8,7 @@ set(CMAKE_AUTOUIC ON)
 
 
 find_package(
-        Qt6 COMPONENTS
+        Qt5 COMPONENTS
         Core
         Gui
         Widgets
@@ -34,7 +34,7 @@ add_executable(
 )
 target_link_libraries(
         sort_visualization
-        Qt::Core
-        Qt::Gui
-        Qt::Widgets
+        Qt5::Core
+        Qt5::Gui
+        Qt5::Widgets
 )
